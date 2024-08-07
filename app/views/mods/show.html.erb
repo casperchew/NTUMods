@@ -24,7 +24,7 @@
     </form>
 <% end %>
 <% if @reviews.any? %>
-    <div class='container-fluid bg-secondary rounded p-3 my-3'>
+    <div class='container-fluid bg-light rounded p-3 my-3'>
         <hr>
         <% @reviews.each do |review| %>
             <h4>@<%= review.author%></h4>
