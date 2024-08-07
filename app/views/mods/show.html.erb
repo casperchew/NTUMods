@@ -1,0 +1,54 @@
+<h4 class='mod'><%= @mod.course_code %> <%= @mod.title %></h4>
+
+<% if @mod.prerequisite %>
+    <p class='prerequisite'>
+        Prerequisite: <%= @mod.prerequisite %>
+    </p>
+<% end %>
+<% if @mod.exclusive %>
+    <p class='exclusive'>
+        Mutually exclusive with: <%= @mod.exclusive %>
+    </p>
+<% end %>
+<p>
+    <%= @mod.description %>
+</p>
+<% if session[:username] %>
+    <form action='<%= new_review_path %>', method='GET'>
+        <button type='submit' class='btn btn-primary'>Add review</button>
+        <input type='hidden' name='course_code', value=<%= @mod.course_code %>>
+    </form>
+<% else %>
+    <form action='/login', method='GET'>
+        <button type='submit' class='btn btn-primary'>Add review</button>
+    </form>
+<% end %>
+<% if @reviews.any? %>
+    <div class='container-fluid bg-secondary rounded p-3 my-3'>
+        <hr>
+        <% @reviews.each do |review| %>
+            <h4>@<%= review.author%></h4>
+            <h6>Created at: <%= review.created_at %></h6>
+            <h6>Last updated: <%= review.updated_at %></h6>
+            <br>
+            <p><%= review.review %></p>
+            <% if review.author == session[:username] %>
+                <div class='d-flex flex-row justify-content-end gap-3 w-100'>
+                    <form action='<%= edit_review_path(review) %>', method='GET'>
+                        <button class='btn' type='submit'>Edit</button>
+                        <input type='hidden' name='course_code', value=<%= @mod.course_code %>>
+                    </form>
+                    <form action='<%= review_path(review) %>', method='DELETE'>
+                        <button class='btn' type='submit'>Delete</button>
+                        <input type='hidden' name='course_code', value=<%= @mod.course_code %>>
+                    </form>
+                </div>
+            <% end %>
+            <hr>
+        <% end %>
+    </div>
+<% else %>
+    <div class='p-3 my-3'>
+        <p>No reviews yet</p>
+    </div>
+<% end %>

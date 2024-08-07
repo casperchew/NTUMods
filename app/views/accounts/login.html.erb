@@ -1,0 +1,23 @@
+<div class='d-flex flex-column align-items-center'>
+    <%= form_with url:'/login', method: :post do |form| %>
+        <div class='mb-3'>
+            <%= form.label :username, class: 'form-label' %><br>
+            <%= form.text_field :username, class: 'form-control' %>
+        </div>
+
+        <div class='mb-3'>
+            <%= form.label :password, class: 'form-label' %><br>
+            <%= form.password_field :password, class: 'form-control' %>
+        </div>
+
+        <div>
+            <%= form.submit 'Login', class: 'btn btn-primary' %>
+        </div>
+
+        <div>
+            <a href=<%= new_account_path %>>
+                Don't have an account?
+            </a>
+        </div>
+    <% end %>
+</div>

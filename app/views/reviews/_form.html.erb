@@ -1,0 +1,16 @@
+<div class='d-flex flex-column align-items-center w-100'>
+    <%= form_with model: @review, class: 'd-flex flex-column align-items-start w-50' do |form| %>
+        <div class='mb-3 w-100'>
+            <label class='form-label'>
+                <h4>Review of <%= params[:course_code] %></h4>
+            </label><br>
+            <%= form.text_area :review, class: 'form-control w-100', rows: '10' %>
+        </div>
+
+        <input type='hidden' name='course_code', value=<%= params[:course_code] %>>
+
+        <div>
+            <%= form.submit nil, class: 'btn btn-primary' %>
+        </div>
+    <% end %>
+</div>
