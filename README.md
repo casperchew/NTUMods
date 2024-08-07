@@ -1,24 +1,8 @@
-# README
+# NTUMods
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[NUSMods](https://nusmods.com) for NTU
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- [Ideation](https://docs.google.com/document/d/13WSpGX52xrRQ9kttdr1d9TtGnoVZ_oGyQlqgK56c0Co)
+- [Figma](https://www.figma.com/design/PVr2O3zJWcNQQLzXf2W8f7/NTUMods)
+- [Database](https://drawsql.app/teams/casper-5/diagrams/ntumods)
+- [Trello](https://trello.com/invite/b/66b2effc7fcddb3f49ea618a/ATTIc65abd800461bfaed2c662b763657196006BCF6B/todo)
