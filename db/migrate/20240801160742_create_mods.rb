@@ -3,6 +3,7 @@ class CreateMods < ActiveRecord::Migration[7.1]
     create_table :mods, id: false, primary_key: :course_code do |t|
       t.text :course_code, null: false
       t.text :title
+      t.integer :au
       t.text :prerequisite
       t.text :exclusive
       t.text :description

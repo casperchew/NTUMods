@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_042022) do
   create_table "mods", id: false, force: :cascade do |t|
     t.text "course_code", null: false
     t.text "title"
+    t.integer "au"
     t.text "prerequisite"
     t.text "exclusive"
     t.text "description"

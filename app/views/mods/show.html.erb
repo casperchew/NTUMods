@@ -1,4 +1,7 @@
-<h4 class='mod'><%= @mod.course_code %> <%= @mod.title %></h4>
+<div class='d-flex flex-row justify-content-between'>
+    <h4 class='mod'><%= @mod.course_code %> <%= @mod.title %></h4>
+    <h4 class='mod'><%= @mod.au %> AU</h4>
+</div>
 
 <% if @mod.prerequisite %>
     <p class='prerequisite'>
@@ -27,7 +30,11 @@
     <div class='container-fluid bg-light rounded p-3 my-3'>
         <hr>
         <% @reviews.each do |review| %>
-            <h4>@<%= review.author%></h4>
+            <h4>
+                <a href=<%= account_path(review.author) %>>
+                    @<%= review.author%>
+                </a>
+            </h4>
             <h6>Created at: <%= review.created_at %></h6>
             <h6>Last updated: <%= review.updated_at %></h6>
             <br>

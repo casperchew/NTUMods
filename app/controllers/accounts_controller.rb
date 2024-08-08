@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   def show
-    @reviews = Review.where(author: session[:username]).order(created_at: :desc)
+    @reviews = Review.where(author: params[:id]).order(created_at: :desc)
   end
 
   def new
