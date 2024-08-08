@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   def show
+    @account = Account.find(params[:id])
     @reviews = Review.where(author: params[:id]).order(created_at: :desc)
   end
 

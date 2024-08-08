@@ -1,4 +1,8 @@
+<h4>
+    <%= @account.username %>
+</h4>
 <% if @reviews.any? %>
+    Number of reviews: <%= @reviews.length() %>
     <div class='container-fluid bg-light rounded p-3 my-3'>
         <hr>
         <% @reviews.each do |review| %>
