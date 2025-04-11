@@ -1,4 +1,3 @@
-import json
 import sqlite3
 import numpy as np
 import pandas as pd
@@ -18,8 +17,10 @@ day_to_int = {
     'FRI': 5
 }
 
-mods = ['SC1007', 'SC2002', 'SC2006', 'MH2100', 'MH2802']
 # mods = ['SC1007', 'SC2002', 'SC2006', 'MH2100', 'MH2500']
+# mods = ['SC1007', 'SC2002', 'SC2006', 'MH2100', 'MH3210']
+# mods = ['SC1007', 'SC2002', 'SC2006', 'MH2100', 'MH2802']
+mods = ['SC1007', 'SC2002', 'SC2006', 'MH2100', 'SC2001']
 
 course_indices = {mod: sorted({i[0] for i in cur.execute('SELECT tutorial_index FROM NTU WHERE course_code=?', [mod]).fetchall()}) for mod in mods}
 
@@ -71,12 +72,25 @@ for combination in tqdm(product(*list(course_indices.values()))):
     if not clash:
         possible_timetables.append(timetable)
 
-best_free_days = -1
-best_start_times = 0
+print(len(possible_timetables))
+
+best_metric = [-np.inf] * 4
 best_timetable = None
 
 for timetable in possible_timetables:
+    # free_days
     free_days = sum([timetable[i].isna().all() for i in range(1, 6)])
+
+    # semi_free_days
+    semi_free_days = 0
+    for i in range(1, 6):
+        try:
+            if (timetable.index[timetable[i].notna()][-1] - timetable.index[timetable[i].notna()][0]) <= 1:
+                semi_free_days += 1
+        except Exception as e:
+            pass
+
+    # start_times
     start_times = []
     for i in range(1, 6):
         try:
@@ -85,10 +99,29 @@ for timetable in possible_timetables:
             pass
     
     start_times = sum(start_times)
+
+    # end_times
+    end_times = []
+    for i in range(1, 6):
+        try:
+            end_times.append(timetable.index[timetable[i].notna()][-1])
+        except Exception as e:
+            pass
     
-    if free_days > best_free_days or (free_days == best_free_days and start_times > best_start_times):
-        best_free_days = free_days
-        best_start_times = start_times
-        best_timetable = timetable
+    end_times = sum(end_times)
+
+    metric = [free_days, semi_free_days, start_times, -end_times]
+
+    for cur, best in zip(metric, best_metric):
+        if cur > best:
+            best_metric = metric
+            best_timetable = timetable
+            break
+
+        if cur < best:
+            break
+
+best_metric[3] = -best_metric[3]
+print(best_metric)
 
 best_timetable.to_csv('timetable.csv')
